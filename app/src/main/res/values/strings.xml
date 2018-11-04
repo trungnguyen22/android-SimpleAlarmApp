@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">PRM391x_AlarmClock_trungnqFX00077</string>
+    <string name="cancle">Cancel</string>
+    <string name="done">Done</string>
+    <string name="clock">CLOCK</string>
+    <string name="off">OFF</string>
+    <string name="on">ON</string>
+    <string name="show_timepicker_dialog">Show TimePicker Dialog</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+</resources>
