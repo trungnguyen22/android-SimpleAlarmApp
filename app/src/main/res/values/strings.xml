@@ -8,4 +8,6 @@
     <string name="show_timepicker_dialog">Show TimePicker Dialog</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="twenty_four_hr_format">24 Hour Format</string>
+    <string name="empty_message">There\'s not any alarm. Click button below to add a new alarm.</string>
 </resources>

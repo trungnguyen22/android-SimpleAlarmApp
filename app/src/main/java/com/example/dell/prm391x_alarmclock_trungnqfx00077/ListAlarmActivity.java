@@ -4,43 +4,48 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 public class ListAlarmActivity extends AppCompatActivity implements View.OnClickListener, TimePickerDialog.OnTimeSetListener {
 
     public static int REQUEST_CODE_ALARM_ADDED = 22;
     public static int REQUEST_CODE_EDIT_ALARM = 33;
 
+    // Intent Extra Key
     public static String RETURN_HOUR_PICKED_EXTRA = "RETURN_HOUR_PICKED_EXTRA";
     public static String RETURN_MINUTE_PICKED_EXTRA = "RETURN_MINUTE_PICKED_EXTRA";
     public static String RETURN_POSITION_ITEM_EXTRA = "RETURN_POSITION_ITEM_EXTRA";
     public static String BOOLEAN_EXTRA = "BOOLEAN_EXTRA";
 
     public static int MENU_MODE_EDIT = 0;
-    public static int MENU_MODE_DELETE = 1;
 
     // Views
     Toolbar mListAlarmToolbar;
     FloatingActionButton mAddAlarmFAB;
     TimePickerDialog mTimePickerDialog;
     RecyclerView mRecyclerView;
-    Switch mSwitchTimePickerDialog;
+    TextView mEmptyMessageTV;
 
     // Data
     List<Alarm> mAlarmList;
@@ -52,6 +57,7 @@ public class ListAlarmActivity extends AppCompatActivity implements View.OnClick
     boolean isShowDialog;
     int positionOfEditItem;
     boolean isEditMode;
+    boolean is24hrFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +67,12 @@ public class ListAlarmActivity extends AppCompatActivity implements View.OnClick
         bindViews();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        toggleEmptyMessageTV();
+    }
+
     private void initData() {
         mAlarmList = new ArrayList<>();
         mAlarmAdapter = new AlarmAdapter(this, mAlarmList);
@@ -68,18 +80,11 @@ public class ListAlarmActivity extends AppCompatActivity implements View.OnClick
 
     private void bindViews() {
         mListAlarmToolbar = findViewById(R.id.mListAlarmToolbar);
+        mEmptyMessageTV = findViewById(R.id.mEmptyMessageTV);
         setSupportActionBar(mListAlarmToolbar);
 
         mRecyclerView = findViewById(R.id.mListAlarmRV);
         mAddAlarmFAB = findViewById(R.id.mAddAlarmFAB);
-
-        mSwitchTimePickerDialog = findViewById(R.id.mSwitchTimePickerDialog);
-        mSwitchTimePickerDialog.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                isShowDialog = isChecked;
-            }
-        });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
@@ -88,12 +93,21 @@ public class ListAlarmActivity extends AppCompatActivity implements View.OnClick
         mAddAlarmFAB.setOnClickListener(this);
     }
 
+    /** This method is for checking if it's empty list or not, then show/hide message */
+    private void toggleEmptyMessageTV() {
+        if (mAlarmList.size() == 0) {
+            mEmptyMessageTV.setVisibility(View.VISIBLE);
+        } else {
+            mEmptyMessageTV.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.mAddAlarmFAB:
                 if (isShowDialog) {
-                    addAlarm();
+                    showTimePickerDialog();
                 } else {
                     AddAlarmActivity.openAddAlarmForResult(ListAlarmActivity.this);
                 }
@@ -101,7 +115,8 @@ public class ListAlarmActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    private void addAlarm() {
+
+    private void showTimePickerDialog() {
         Calendar calendar = Calendar.getInstance();
         int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
@@ -109,17 +124,23 @@ public class ListAlarmActivity extends AppCompatActivity implements View.OnClick
         mTimePickerDialog.show();
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         if (isEditMode) {
+            isEditMode = false;
             mAlarmList.get(positionOfEditItem).setHourOfDay(hourOfDay);
             mAlarmList.get(positionOfEditItem).setMinute(minute);
-            mAlarmAdapter.notifyItemChanged(positionOfEditItem);
+            resetAdapter();
         } else {
-            mAlarmList.add(new Alarm(hourOfDay, minute));
-            mAlarmAdapter.notifyItemInserted(mAlarmList.size() - 1);
+            mAlarmList.add(new Alarm(hourOfDay, minute, is24hrFormat));
+            toggleEmptyMessageTV();
+            resetAdapter();
         }
+    }
+
+    private void resetAdapter() {
+        sortingAlarmListASC(); // Sorting the list alarm in ASC order
+        mAlarmAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -128,24 +149,38 @@ public class ListAlarmActivity extends AppCompatActivity implements View.OnClick
             if (resultCode == Activity.RESULT_OK) {
                 int hourOfDay = data != null ? data.getIntExtra(RETURN_HOUR_PICKED_EXTRA, 0) : 0;
                 int minute = data != null ? data.getIntExtra(RETURN_MINUTE_PICKED_EXTRA, 0) : 0;
-                mAlarmList.add(new Alarm(hourOfDay, minute));
-                mAlarmAdapter.notifyItemInserted(mAlarmList.size() - 1);
+                mAlarmList.add(new Alarm(hourOfDay, minute, is24hrFormat));
+                resetAdapter();
             }
         } else {
             if (resultCode == Activity.RESULT_OK) {
+                isEditMode = false;
                 int hourOfDay = data != null ? data.getIntExtra(RETURN_HOUR_PICKED_EXTRA, 0) : 0;
                 int minute = data != null ? data.getIntExtra(RETURN_MINUTE_PICKED_EXTRA, 0) : 0;
                 mAlarmList.get(positionOfEditItem).setHourOfDay(hourOfDay);
                 mAlarmList.get(positionOfEditItem).setMinute(minute);
-                mAlarmAdapter.notifyItemChanged(positionOfEditItem);
+                resetAdapter();
             }
         }
+    }
+
+    private void sortingAlarmListASC() {
+        Collections.sort(mAlarmList, new Comparator<Alarm>() {
+            @Override
+            public int compare(Alarm o1, Alarm o2) {
+                try {
+                    return new SimpleDateFormat("hh:mm a", Locale.getDefault()).parse(o1.convert24hrTo12hrFormat()).compareTo(new SimpleDateFormat("hh:mm a", Locale.getDefault()).parse(o2.convert24hrTo12hrFormat()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    return 0;
+                }
+            }
+        });
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         int position = item.getItemId();
-
         if (item.getOrder() == MENU_MODE_EDIT) {
             positionOfEditItem = position;
             Alarm alarm = mAlarmList.get(position);
@@ -159,7 +194,39 @@ public class ListAlarmActivity extends AppCompatActivity implements View.OnClick
         } else {
             mAlarmList.remove(position);
             mAlarmAdapter.notifyItemRemoved(position);
+            toggleEmptyMessageTV();
         }
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_switch_show_time_picker:
+                item.setChecked(!item.isChecked());
+                isShowDialog = item.isChecked();
+                return true;
+            case R.id.action_switch_24_hour_format:
+                item.setChecked(!item.isChecked());
+                is24hrFormat = item.isChecked();
+                setShowTimeFormat();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void setShowTimeFormat() {
+        for (Alarm alarm : mAlarmList) {
+            alarm.setIs24hrFormat(is24hrFormat);
+            mAlarmAdapter.notifyDataSetChanged();
+        }
     }
 }

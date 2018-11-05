@@ -15,7 +15,7 @@ public class AddAlarmActivity extends AppCompatActivity implements View.OnClickL
 
     TimePicker mTimePicker;
 
-    Button mCancleBtn;
+    Button mCancelBtn;
     Button mDoneBtn;
 
     int mHourOfDay;
@@ -54,9 +54,9 @@ public class AddAlarmActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void bindViews() {
-        mCancleBtn = findViewById(R.id.mAddAlarmCancleBtn);
+        mCancelBtn = findViewById(R.id.mAddAlarmCancleBtn);
         mDoneBtn = findViewById(R.id.mAddAlarmDoneBtn);
-        mCancleBtn.setOnClickListener(this);
+        mCancelBtn.setOnClickListener(this);
         mDoneBtn.setOnClickListener(this);
         setUpTimePicker();
     }

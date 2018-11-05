@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_switch_show_time_picker"
+        android:checkable="true"
+        android:title="@string/show_timepicker_dialog"
+        app:actionViewClass="android.widget.CheckBox" />
+    <item
+        android:id="@+id/action_switch_24_hour_format"
+        android:checkable="true"
+        android:title="@string/twenty_four_hr_format"
+        app:actionViewClass="android.widget.CheckBox" />
+</menu>

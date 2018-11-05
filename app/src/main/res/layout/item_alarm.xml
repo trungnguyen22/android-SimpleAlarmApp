@@ -6,7 +6,8 @@
     android:background="?selectableItemBackground"
     android:orientation="vertical"
     android:paddingLeft="@dimen/padding_16"
-    android:paddingRight="@dimen/padding_16">
+    android:paddingRight="@dimen/padding_16"
+    tools:background="@android:color/black">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,17 +20,16 @@
             android:id="@+id/mAlarmTimeTV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="7"
+            android:layout_weight="9"
             android:maxLines="1"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             tools:text="12:50" />
 
         <Switch
             android:id="@+id/mOnOffAlarmSwitch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
