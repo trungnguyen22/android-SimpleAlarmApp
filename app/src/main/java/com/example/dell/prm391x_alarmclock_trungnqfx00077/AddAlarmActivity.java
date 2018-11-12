@@ -1,6 +1,9 @@
 package com.example.dell.prm391x_alarmclock_trungnqfx00077;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +11,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
+
+import utils.AlarmManagerUtil;
 
 public class AddAlarmActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -44,6 +50,15 @@ public class AddAlarmActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_add_alarm);
         initData();
         bindViews();
+        findViewById(R.id.mTestBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlarmManagerUtil.setAlarm(AddAlarmActivity.this, 0, mHourOfDay, mMinute,
+                        0, 0, "Alert Rings", 2);
+                String message = "Set Alarm Successfully: " + mHourOfDay + ":" + mMinute;
+                Toast.makeText(AddAlarmActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initData() {

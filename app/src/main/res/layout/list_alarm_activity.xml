@@ -24,7 +24,6 @@
         android:id="@+id/mListAlarmToolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@android:color/black"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -58,8 +57,8 @@
         android:id="@+id/mAddAlarmFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginEnd="@dimen/padding_8"
         android:layout_marginBottom="@dimen/padding_8"
         android:src="@drawable/ic_add_white_24dp"

@@ -1,5 +1,6 @@
-package com.example.dell.prm391x_alarmclock_trungnqfx00077;
+package adapters;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,11 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import models.Alarm;
+import utils.AlarmManagerUtil;
+
+import com.example.dell.prm391x_alarmclock_trungnqfx00077.R;
 
 import java.util.List;
 
@@ -58,6 +64,12 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     Alarm alarm = mAlarmList.get(getAdapterPosition());
                     alarm.setOn(isChecked);
+                    if (isChecked) {
+                        AlarmManagerUtil.setAlarm(mContext, 0, alarm.getHourOfDay(), alarm.getMinute(),
+                                alarm.getID(), 0, "Alert Rings", 2);
+                    } else {
+                        AlarmManagerUtil.cancelAlarm(mContext, alarm.getID());
+                    }
                 }
             });
         }

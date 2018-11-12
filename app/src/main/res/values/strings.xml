@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">PRM391x_AlarmClock_trungnqFX00077</string>
-    <string name="cancle">Cancel</string>
+    <string name="cancel">Cancel</string>
     <string name="done">Done</string>
     <string name="clock">CLOCK</string>
     <string name="off">OFF</string>
@@ -9,5 +9,9 @@
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="twenty_four_hr_format">24 Hour Format</string>
-    <string name="empty_message">There\'s not any alarm. Click button below to add a new alarm.</string>
+    <string name="empty_message">Click button below to add a new alarm.</string>
+    <string name="ok">OK</string>
+    <string name="alarm_dialog_title">Alarm Alert Prompt</string>
+    <string name="alarm_remider_title">Alarm Reminder</string>
+    <string name="test">Test</string>
 </resources>

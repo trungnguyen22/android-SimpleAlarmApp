@@ -1,6 +1,5 @@
 package com.example.dell.prm391x_alarmclock_trungnqfx00077;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -27,10 +26,18 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import adapters.AlarmAdapter;
+import models.Alarm;
+import utils.Constants;
+import utils.SharedPrefs;
+
 public class ListAlarmActivity extends AppCompatActivity implements View.OnClickListener, TimePickerDialog.OnTimeSetListener {
 
     public static int REQUEST_CODE_ALARM_ADDED = 22;
     public static int REQUEST_CODE_EDIT_ALARM = 33;
+
+    // SHARED PREFS KEY
+    public static String SHARED_PREFS_ARRAY_LIST_KEY = "SHARED_PREFS_ARRAY_LIST_KEY";
 
     // Intent Extra Key
     public static String RETURN_HOUR_PICKED_EXTRA = "RETURN_HOUR_PICKED_EXTRA";
@@ -74,18 +81,24 @@ public class ListAlarmActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void initData() {
-        mAlarmList = new ArrayList<>();
+        isShowDialog = SharedPrefs.getInstance().get(Constants.SHARED_PREFS_BOOLEAN, Boolean.class);
+        is24hrFormat = SharedPrefs.getInstance().get(Constants.SHARED_PREFS_BOOLEAN_2ND, Boolean.class);
+
+        mAlarmList = SharedPrefs.getInstance().getArrayList(SHARED_PREFS_ARRAY_LIST_KEY);
+        if (mAlarmList == null) mAlarmList = new ArrayList<>();
+
         mAlarmAdapter = new AlarmAdapter(this, mAlarmList);
     }
 
     private void bindViews() {
         mListAlarmToolbar = findViewById(R.id.mListAlarmToolbar);
         mEmptyMessageTV = findViewById(R.id.mEmptyMessageTV);
-        setSupportActionBar(mListAlarmToolbar);
-
         mRecyclerView = findViewById(R.id.mListAlarmRV);
         mAddAlarmFAB = findViewById(R.id.mAddAlarmFAB);
 
+        setSupportActionBar(mListAlarmToolbar);
+
+        // Setup RecyclerView
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAlarmAdapter);
@@ -93,7 +106,9 @@ public class ListAlarmActivity extends AppCompatActivity implements View.OnClick
         mAddAlarmFAB.setOnClickListener(this);
     }
 
-    /** This method is for checking if it's empty list or not, then show/hide message */
+    /**
+     * Checking if it's empty list or not, then show/hide the message
+     */
     private void toggleEmptyMessageTV() {
         if (mAlarmList.size() == 0) {
             mEmptyMessageTV.setVisibility(View.VISIBLE);
@@ -132,7 +147,7 @@ public class ListAlarmActivity extends AppCompatActivity implements View.OnClick
             mAlarmList.get(positionOfEditItem).setMinute(minute);
             resetAdapter();
         } else {
-            mAlarmList.add(new Alarm(hourOfDay, minute, is24hrFormat));
+            mAlarmList.add(new Alarm(mAlarmList.size(), hourOfDay, minute, is24hrFormat));
             toggleEmptyMessageTV();
             resetAdapter();
         }
@@ -149,7 +164,7 @@ public class ListAlarmActivity extends AppCompatActivity implements View.OnClick
             if (resultCode == Activity.RESULT_OK) {
                 int hourOfDay = data != null ? data.getIntExtra(RETURN_HOUR_PICKED_EXTRA, 0) : 0;
                 int minute = data != null ? data.getIntExtra(RETURN_MINUTE_PICKED_EXTRA, 0) : 0;
-                mAlarmList.add(new Alarm(hourOfDay, minute, is24hrFormat));
+                mAlarmList.add(new Alarm(mAlarmList.size(), hourOfDay, minute, is24hrFormat));
                 resetAdapter();
             }
         } else {
@@ -200,6 +215,13 @@ public class ListAlarmActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_switch_show_time_picker).setChecked(isShowDialog);
+        menu.findItem(R.id.action_switch_24_hour_format).setChecked(is24hrFormat);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
@@ -228,5 +250,13 @@ public class ListAlarmActivity extends AppCompatActivity implements View.OnClick
             alarm.setIs24hrFormat(is24hrFormat);
             mAlarmAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPrefs.getInstance().putArrayList(Constants.SHARED_PREFS_ARRAY_LIST_KEY, mAlarmList);
+        SharedPrefs.getInstance().put(Constants.SHARED_PREFS_BOOLEAN, isShowDialog);
+        SharedPrefs.getInstance().put(Constants.SHARED_PREFS_BOOLEAN_2ND, is24hrFormat);
     }
 }

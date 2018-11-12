@@ -1,4 +1,4 @@
-package com.example.dell.prm391x_alarmclock_trungnqfx00077;
+package models;
 
 import android.support.annotation.NonNull;
 
@@ -8,16 +8,26 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Alarm {
+    private int mID;
     private int mHourOfDay;
     private int mMinute;
     private boolean isOn;
     private boolean is24hrFormat;
 
-    public Alarm(int hourOfDay, int minute, boolean is24hrFormat) {
+    public Alarm(int id, int hourOfDay, int minute, boolean is24hrFormat) {
+        mID = id;
         mHourOfDay = hourOfDay;
         mMinute = minute;
         isOn = false;
         this.is24hrFormat = is24hrFormat;
+    }
+
+    public int getID() {
+        return mID;
+    }
+
+    public void setID(int ID) {
+        mID = ID;
     }
 
     public int getHourOfDay() {
