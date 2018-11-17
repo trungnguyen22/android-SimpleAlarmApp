@@ -14,4 +14,9 @@ To run the apk file, please install it on device from Android 5.0 and above.
 
 ### Demo
 
+![portrait](https://github.com/trungnguyen22/PRM391x_AlarmClock_trungnqFX00077/blob/master/artwork/1.PNG)
+![portrait](https://github.com/trungnguyen22/PRM391x_AlarmClock_trungnqFX00077/blob/master/artwork/2.PNG)
+![portrait](https://github.com/trungnguyen22/PRM391x_AlarmClock_trungnqFX00077/blob/master/artwork/3.PNG)
+![portrait](https://github.com/trungnguyen22/PRM391x_AlarmClock_trungnqFX00077/blob/master/artwork/4.PNG)
+![portrait](https://github.com/trungnguyen22/PRM391x_AlarmClock_trungnqFX00077/blob/master/artwork/5.PNG)
 
