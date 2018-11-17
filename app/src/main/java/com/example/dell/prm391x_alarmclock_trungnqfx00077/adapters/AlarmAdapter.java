@@ -1,9 +1,9 @@
-package adapters;
+package com.example.dell.prm391x_alarmclock_trungnqfx00077.adapters;
 
-import android.app.PendingIntent;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,20 +13,37 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import models.Alarm;
-import utils.AlarmManagerUtil;
-
 import com.example.dell.prm391x_alarmclock_trungnqfx00077.R;
+import com.example.dell.prm391x_alarmclock_trungnqfx00077.models.Alarm;
+import com.example.dell.prm391x_alarmclock_trungnqfx00077.utils.AlarmManagerUtil;
+import com.example.dell.prm391x_alarmclock_trungnqfx00077.utils.Utils;
 
 import java.util.List;
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
+
+    private static final String TAG = AlarmAdapter.class.getSimpleName();
+
+    private onItemClick mListener;
+
+    public interface onItemClick {
+        void onSwitchClick(Alarm alarm);
+    }
+
     private List<Alarm> mAlarmList;
     private Context mContext;
 
-    public AlarmAdapter(Context context, List<Alarm> alarmList) {
+    // Logic
+    private boolean is24HrFormat;
+
+    public AlarmAdapter(Context context, List<Alarm> alarmList, onItemClick listener) {
         mAlarmList = alarmList;
         mContext = context;
+        mListener = listener;
+    }
+
+    public void setIs24HrFormat(boolean is24HrFormat) {
+        this.is24HrFormat = is24HrFormat;
     }
 
     @NonNull
@@ -53,6 +70,16 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         AlarmViewHolder(@NonNull View itemView) {
             super(itemView);
             bindViews();
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Alarm alarm = mAlarmList.get(getAdapterPosition());
+                    String alarmInfo = "Alarm_ID: " + alarm.getID()
+                            + "--Alarm_Status: " + alarm.getAlarmStatus()
+                            + "--Alarm_isEnable:" + alarm.isEnable();
+                    Log.d(TAG, alarmInfo);
+                }
+            });
             itemView.setOnCreateContextMenuListener(this);
         }
 
@@ -63,21 +90,20 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     Alarm alarm = mAlarmList.get(getAdapterPosition());
-                    alarm.setOn(isChecked);
-                    if (isChecked) {
-                        AlarmManagerUtil.setAlarm(mContext, 0, alarm.getHourOfDay(), alarm.getMinute(),
-                                alarm.getID(), 0, "Alert Rings", 2);
-                    } else {
-                        AlarmManagerUtil.cancelAlarm(mContext, alarm.getID());
-                    }
+                    alarm.setEnable(isChecked);
+                    mListener.onSwitchClick(alarm);
                 }
             });
         }
 
         private void bindData(int position) {
             Alarm alarm = mAlarmList.get(position);
-            mAlarmTimeTV.setText(alarm.toString());
-            if (alarm.isOn()) {
+            if (is24HrFormat) {
+                mAlarmTimeTV.setText(alarm.toString());
+            } else {
+                mAlarmTimeTV.setText(Utils.getTimeIn12HrFormat(alarm.getHourOfDay(), alarm.getMinute()));
+            }
+            if (alarm.isEnable()) {
                 mOnOffAlarmSwitch.setChecked(true);
             } else {
                 mOnOffAlarmSwitch.setChecked(false);
@@ -89,6 +115,5 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             menu.add(Menu.NONE, getAdapterPosition(), 0, mContext.getString(R.string.edit));
             menu.add(Menu.NONE, getAdapterPosition(), 1, mContext.getString(R.string.delete));
         }
-
     }
 }

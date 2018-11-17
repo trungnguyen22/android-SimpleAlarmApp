@@ -1,23 +1,21 @@
-package com.example.dell.prm391x_alarmclock_trungnqfx00077;
+package com.example.dell.prm391x_alarmclock_trungnqfx00077.dialog;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.dell.prm391x_alarmclock_trungnqfx00077.R;
 
 public class SimpleDialog extends Dialog {
 
-    Context mContext;
-
-    private View.OnClickListener listener;
-
+    private Context mContext;
 
     // View members
     public TextView dialog_title;
@@ -34,14 +32,15 @@ public class SimpleDialog extends Dialog {
         bindViews(context);
     }
 
+    @SuppressLint("InflateParams")
     private void bindViews(Context context) {
         view = LayoutInflater.from(context).inflate(R.layout.dialog_simple, null);
-        icon = view.findViewById(R.id.icon);
-        dialog_title = view.findViewById(R.id.dialog_title);
+        icon = view.findViewById(R.id.mSimpleDialogIcon);
+        dialog_title = view.findViewById(R.id.mSimpleDialogTitle);
         setTitle("Prompt message");
-        dialog_message = view.findViewById(R.id.dialog_message);
+        dialog_message = view.findViewById(R.id.mSimpleDialogMessage);
         dialog_message.clearFocus();
-        bt_confirm = view.findViewById(R.id.dialog_confirm);
+        bt_confirm = view.findViewById(R.id.mSimpleDialogConfirm);
     }
 
 
@@ -49,15 +48,12 @@ public class SimpleDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(view);
-
         setTitle(mContext.getString(R.string.alarm_dialog_title));
     }
 
 
-    public SimpleDialog setClickListener(View.OnClickListener listener) {
-        this.listener = listener;
+    public void setClickListener(View.OnClickListener listener) {
         bt_confirm.setOnClickListener(listener);
-        return this;
     }
 
     public SimpleDialog setMessage(String message) {
@@ -74,7 +70,6 @@ public class SimpleDialog extends Dialog {
         dialog_title.setVisibility(View.GONE);
         icon.setVisibility(View.VISIBLE);
         icon.setBackgroundResource(iconResId);
-
         return this;
     }
 

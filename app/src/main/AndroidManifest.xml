@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ListAlarmActivity">
+        <activity android:name=".activities.ListAlarmActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,17 +20,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddAlarmActivity"
+            android:name=".activities.AddAlarmActivity"
             android:theme="@style/AppTheme.Accent" />
 
-        <receiver android:name="services.AlarmReceiver">
+        <receiver android:name="services.AlarmReceiver" android:enabled="true">
             <intent-filter>
                 <action android:name="com.example.dell.alarm.clock" />
             </intent-filter>
         </receiver>
 
         <activity
-            android:name=".ClockAlarmActivity"
+            android:name=".activities.ClockAlarmActivity"
             android:theme="@style/AppTheme.Translucent" />
     </application>
 

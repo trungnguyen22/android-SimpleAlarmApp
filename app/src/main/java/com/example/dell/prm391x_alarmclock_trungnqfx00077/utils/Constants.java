@@ -1,4 +1,4 @@
-package utils;
+package com.example.dell.prm391x_alarmclock_trungnqfx00077.utils;
 
 public class Constants {
 
@@ -13,4 +13,5 @@ public class Constants {
     public static final String ID = "ID";
     public static final String SOUND_OR_VIBRATOR = "SOUND_OR_VIBRATOR";
     public static final String FLAG = "FLAG";
+    public static final String OBJECT_EXTRA = "OBJECT_EXTRA";
 }

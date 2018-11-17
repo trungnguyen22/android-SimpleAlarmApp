@@ -1,16 +1,14 @@
-package utils;
+package com.example.dell.prm391x_alarmclock_trungnqfx00077.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.dell.prm391x_alarmclock_trungnqfx00077.App;
-import com.google.gson.internal.LinkedTreeMap;
+import com.example.dell.prm391x_alarmclock_trungnqfx00077.models.Alarm;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
-
-import models.Alarm;
 
 public class SharedPrefs {
     private static final String PREFS_NAME = "share_prefs";
@@ -69,13 +67,14 @@ public class SharedPrefs {
         editor.apply();
     }
 
-    public List<Alarm> getArrayList(String key) {
+    public List<Alarm> getAlarmArrayList(String key) {
         String json = mSharedPreferences.getString(key, "");
-        Type token = new TypeToken<List<Alarm>>() {}.getType();
+        Type token = new TypeToken<List<Alarm>>() {
+        }.getType();
         return App.self().getGson().fromJson(json, token);
     }
 
-    /*public List<Alarm> getArrayList(String key) {
+    /*public List<Alarm> getAlarmArrayList(String key) {
         String json = mSharedPreferences.getString(key, "");
         Type token = new TypeToken<List<Alarm>>() {}.getType();
         return App.self().getGson().fromJson(json, token);

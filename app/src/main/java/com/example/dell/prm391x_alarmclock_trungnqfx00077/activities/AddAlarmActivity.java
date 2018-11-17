@@ -1,9 +1,6 @@
-package com.example.dell.prm391x_alarmclock_trungnqfx00077;
+package com.example.dell.prm391x_alarmclock_trungnqfx00077.activities;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -13,22 +10,26 @@ import android.widget.Button;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.dell.prm391x_alarmclock_trungnqfx00077.R;
+
 import java.util.Calendar;
 
-import utils.AlarmManagerUtil;
+import com.example.dell.prm391x_alarmclock_trungnqfx00077.utils.AlarmManagerUtil;
 
 public class AddAlarmActivity extends AppCompatActivity implements View.OnClickListener {
 
+    // Views
     TimePicker mTimePicker;
-
     Button mCancelBtn;
     Button mDoneBtn;
 
+    // Logic
     int mHourOfDay;
     int mMinute;
     int mPosition;
     boolean isEditMode;
 
+    // Stuff
     Calendar mCalendar;
 
     public static void openAddAlarmForResult(Activity activity) {
@@ -50,15 +51,6 @@ public class AddAlarmActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_add_alarm);
         initData();
         bindViews();
-        findViewById(R.id.mTestBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlarmManagerUtil.setAlarm(AddAlarmActivity.this, 0, mHourOfDay, mMinute,
-                        0, 0, "Alert Rings", 2);
-                String message = "Set Alarm Successfully: " + mHourOfDay + ":" + mMinute;
-                Toast.makeText(AddAlarmActivity.this, message, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void initData() {
@@ -79,9 +71,7 @@ public class AddAlarmActivity extends AppCompatActivity implements View.OnClickL
     private void setUpTimePicker() {
         mTimePicker = findViewById(R.id.mAddAlarmTimePicker);
 
-        if (isEditMode) {
-            // Do nothing, but update later
-        } else {
+        if (!isEditMode) {
             mCalendar = Calendar.getInstance();
             mHourOfDay = mCalendar.get(Calendar.HOUR_OF_DAY);
             mMinute = mCalendar.get(Calendar.MINUTE);

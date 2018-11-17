@@ -4,7 +4,7 @@
     <string name="done">Done</string>
     <string name="clock">CLOCK</string>
     <string name="off">OFF</string>
-    <string name="on">ON</string>
+    <string name="enable">ON</string>
     <string name="show_timepicker_dialog">Show TimePicker Dialog</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
@@ -12,6 +12,12 @@
     <string name="empty_message">Click button below to add a new alarm.</string>
     <string name="ok">OK</string>
     <string name="alarm_dialog_title">Alarm Alert Prompt</string>
-    <string name="alarm_remider_title">Alarm Reminder</string>
+    <string name="alarm_reminder_title">Alarm Reminder</string>
+    <string name="alarm_reminder_message">Alarm Alert At: </string>
     <string name="test">Test</string>
+    <string name="time_format">%2d:%2d</string>
+    <string name="inserted_db_success_message">Inserted into database successfully.</string>
+    <string name="updated_db_success_message">Updated to database successfully.</string>
+    <string name="deleted_db_success_message">Deleted from database successfully.</string>
+    <string name="alarm_message">Alarm Message</string>
 </resources>
