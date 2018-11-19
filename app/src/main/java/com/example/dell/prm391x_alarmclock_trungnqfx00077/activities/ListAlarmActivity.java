@@ -70,6 +70,7 @@ public class ListAlarmActivity extends AppCompatActivity
     int positionOfEditItem;
     boolean isEditMode;
     boolean is24hrFormat;
+    boolean needUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,13 +85,18 @@ public class ListAlarmActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        getListAlarmFromDB();
+    }
+
+    private void getListAlarmFromDB() {
+        mAlarmList = mDatabaseHelper.getAllAlarms();
+        mAlarmAdapter.setAlarmList(mAlarmList);
+        resetAdapter();
         toggleEmptyMessageTV();
     }
 
     private void initData() {
         mDatabaseHelper = new DatabaseHelper(this);
-        mAlarmList = mDatabaseHelper.getAllAlarms();
-        sortingAlarmListASC();
 
         // SharedPreferences
         isShowDialog = SharedPrefs.getInstance().get(Constants.SHARED_PREFS_BOOLEAN, Boolean.class);
@@ -147,8 +153,7 @@ public class ListAlarmActivity extends AppCompatActivity
             resetAdapter();
         } else {
             createAlarm(hourOfDay, minute);
-            toggleEmptyMessageTV();
-            resetAdapter();
+            getListAlarmFromDB();
         }
     }
 
@@ -211,9 +216,7 @@ public class ListAlarmActivity extends AppCompatActivity
 
     private void createAlarm(int hourOfDay, int minute) {
         Alarm alarm = new Alarm(0, hourOfDay, minute, false);
-        mAlarmList.add(alarm);
-        onDatabaseOperation(EDatabaseOperation.INSERT_ITEM_TO_DB, mAlarmList.get(mAlarmList.indexOf(alarm)));
-        resetAdapter();
+        onDatabaseOperation(EDatabaseOperation.INSERT_ITEM_TO_DB, alarm);
     }
 
     private void resetAdapter() {
@@ -311,10 +314,10 @@ public class ListAlarmActivity extends AppCompatActivity
         // Add a new alarm
         if (requestCode == REQUEST_CODE_ALARM_ADDED) {
             if (resultCode == Activity.RESULT_OK) {
+                needUpdate = false;
                 int hourOfDay = data != null ? data.getIntExtra(RETURN_HOUR_PICKED_EXTRA, 0) : 0;
                 int minute = data != null ? data.getIntExtra(RETURN_MINUTE_PICKED_EXTRA, 0) : 0;
                 createAlarm(hourOfDay, minute);
-
             }
         }
         // Edit an alarm

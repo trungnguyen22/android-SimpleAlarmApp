@@ -42,6 +42,14 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         mListener = listener;
     }
 
+    public List<Alarm> getAlarmList() {
+        return mAlarmList;
+    }
+
+    public void setAlarmList(List<Alarm> alarmList) {
+        mAlarmList = alarmList;
+    }
+
     public void setIs24HrFormat(boolean is24HrFormat) {
         this.is24HrFormat = is24HrFormat;
     }
@@ -65,6 +73,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     class AlarmViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         TextView mAlarmTimeTV;
+        TextView mAlarmNoteTV;
         Switch mOnOffAlarmSwitch;
 
         AlarmViewHolder(@NonNull View itemView) {
@@ -85,6 +94,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
         private void bindViews() {
             mAlarmTimeTV = itemView.findViewById(R.id.mAlarmTimeTV);
+            mAlarmNoteTV = itemView.findViewById(R.id.mAlarmNoteTV);
             mOnOffAlarmSwitch = itemView.findViewById(R.id.mOnOffAlarmSwitch);
             mOnOffAlarmSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -103,6 +113,9 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             } else {
                 mAlarmTimeTV.setText(Utils.getTimeIn12HrFormat(alarm.getHourOfDay(), alarm.getMinute()));
             }
+
+            mAlarmNoteTV.setText(String.format(mContext.getString(R.string.alarm_note_format), position + 1));
+
             if (alarm.isEnable()) {
                 mOnOffAlarmSwitch.setChecked(true);
             } else {

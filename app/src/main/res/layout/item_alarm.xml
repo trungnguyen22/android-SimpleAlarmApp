@@ -33,9 +33,19 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/mAlarmNoteTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+        android:textColor="@android:color/white"
+        tools:text="Alarm" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
+        android:layout_marginTop="4dp"
         android:background="@android:color/darker_gray" />
 
 

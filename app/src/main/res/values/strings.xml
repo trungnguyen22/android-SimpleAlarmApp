@@ -20,4 +20,6 @@
     <string name="updated_db_success_message">Updated to database successfully.</string>
     <string name="deleted_db_success_message">Deleted from database successfully.</string>
     <string name="alarm_message">Alarm Message</string>
+    <string name="alarm_note_format">Alarm %d</string>
+    <string name="turn_off_ringtone">Turn Off Ringtone</string>
 </resources>
