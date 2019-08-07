@@ -1,4 +1,4 @@
-package com.example.dell.prm391x_alarmclock_trungnqfx00077.activities;
+package com.example.dell.alarm.activities;
 
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
@@ -8,11 +8,11 @@ import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.R;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.database.DatabaseHelper;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.dialog.SimpleDialog;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.models.Alarm;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.utils.Constants;
+import com.example.dell.alarm.R;
+import com.example.dell.alarm.database.DatabaseHelper;
+import com.example.dell.alarm.dialog.SimpleDialog;
+import com.example.dell.alarm.models.Alarm;
+import com.example.dell.alarm.utils.Constants;
 
 public class ClockAlarmActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.dell.prm391x_alarmclock_trungnqfx00077.utils;
+package com.example.dell.alarm.utils;
 
 public class Constants {
 

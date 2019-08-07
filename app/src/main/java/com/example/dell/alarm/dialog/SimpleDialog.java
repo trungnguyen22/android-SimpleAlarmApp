@@ -1,4 +1,4 @@
-package com.example.dell.prm391x_alarmclock_trungnqfx00077.dialog;
+package com.example.dell.alarm.dialog;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.R;
+import com.example.dell.alarm.R;
 
 public class SimpleDialog extends Dialog {
 

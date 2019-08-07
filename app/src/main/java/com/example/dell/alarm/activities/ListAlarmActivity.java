@@ -1,4 +1,4 @@
-package com.example.dell.prm391x_alarmclock_trungnqfx00077.activities;
+package com.example.dell.alarm.activities;
 
 import android.app.Activity;
 import android.app.TimePickerDialog;
@@ -18,15 +18,15 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.R;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.adapters.AlarmAdapter;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.database.DatabaseHelper;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.enums.EDatabaseOperation;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.models.Alarm;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.utils.AlarmManagerUtil;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.utils.Constants;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.utils.SharedPrefs;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.utils.Utils;
+import com.example.dell.alarm.R;
+import com.example.dell.alarm.adapters.AlarmAdapter;
+import com.example.dell.alarm.database.DatabaseHelper;
+import com.example.dell.alarm.enums.EDatabaseOperation;
+import com.example.dell.alarm.models.Alarm;
+import com.example.dell.alarm.utils.AlarmManagerUtil;
+import com.example.dell.alarm.utils.Constants;
+import com.example.dell.alarm.utils.SharedPrefs;
+import com.example.dell.alarm.utils.Utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package com.example.dell.prm391x_alarmclock_trungnqfx00077.activities;
+package com.example.dell.alarm.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,13 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.R;
+import com.example.dell.alarm.R;
 
 import java.util.Calendar;
-
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.utils.AlarmManagerUtil;
 
 public class AddAlarmActivity extends AppCompatActivity implements View.OnClickListener {
 

@@ -4,14 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.R;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.activities.ClockAlarmActivity;
+import com.example.dell.alarm.activities.ClockAlarmActivity;
 
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.models.Alarm;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.utils.AlarmManagerUtil;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.utils.Constants;
+import com.example.dell.alarm.utils.AlarmManagerUtil;
+import com.example.dell.alarm.utils.Constants;
 
 public class AlarmReceiver extends BroadcastReceiver {
 

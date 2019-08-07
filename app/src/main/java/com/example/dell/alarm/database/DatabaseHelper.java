@@ -1,4 +1,4 @@
-package com.example.dell.prm391x_alarmclock_trungnqfx00077.database;
+package com.example.dell.alarm.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.models.Alarm;
+import com.example.dell.alarm.models.Alarm;
 
 import java.util.ArrayList;
 import java.util.List;

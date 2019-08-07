@@ -1,10 +1,10 @@
-package com.example.dell.prm391x_alarmclock_trungnqfx00077.utils;
+package com.example.dell.alarm.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.App;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.models.Alarm;
+import com.example.dell.alarm.App;
+import com.example.dell.alarm.models.Alarm;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

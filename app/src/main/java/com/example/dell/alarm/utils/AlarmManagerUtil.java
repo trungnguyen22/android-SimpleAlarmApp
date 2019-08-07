@@ -1,14 +1,13 @@
-package com.example.dell.prm391x_alarmclock_trungnqfx00077.utils;
+package com.example.dell.alarm.utils;
 
-import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.R;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.models.Alarm;
+import com.example.dell.alarm.R;
+import com.example.dell.alarm.models.Alarm;
 
 import java.util.Calendar;
 

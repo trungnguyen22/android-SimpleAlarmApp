@@ -1,4 +1,4 @@
-package com.example.dell.prm391x_alarmclock_trungnqfx00077.enums;
+package com.example.dell.alarm.enums;
 
 public enum EDatabaseOperation {
     INSERT_ITEM_TO_DB("INSERT_ITEM_TO_DB"),

@@ -1,4 +1,4 @@
-package com.example.dell.prm391x_alarmclock_trungnqfx00077.adapters;
+package com.example.dell.alarm.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,10 +13,9 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.R;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.models.Alarm;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.utils.AlarmManagerUtil;
-import com.example.dell.prm391x_alarmclock_trungnqfx00077.utils.Utils;
+import com.example.dell.alarm.R;
+import com.example.dell.alarm.models.Alarm;
+import com.example.dell.alarm.utils.Utils;
 
 import java.util.List;
 

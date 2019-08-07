@@ -1,4 +1,4 @@
-package com.example.dell.prm391x_alarmclock_trungnqfx00077.models;
+package com.example.dell.alarm.models;
 
 import android.support.annotation.NonNull;
 
