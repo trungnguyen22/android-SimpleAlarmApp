@@ -19,11 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.example.dell.alarm.activities.AddAlarmActivity"
-            android:theme="@style/AppTheme.Accent" />
+        <activity android:name="com.example.dell.alarm.activities.AddAlarmActivity" />
 
-        <receiver android:name="services.AlarmReceiver" android:enabled="true">
+        <receiver
+            android:name="services.AlarmReceiver"
+            android:enabled="true">
             <intent-filter>
                 <action android:name="com.example.dell.alarm.clock" />
             </intent-filter>
